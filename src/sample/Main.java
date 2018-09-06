@@ -28,7 +28,7 @@ public class Main extends Application {
 
     /**
      * Loads the main fxml layout.
-     * Sets up the vista switching VistaNavigator.
+     * Sets up the vista switching ViewNavigator.
      * Loads the first vista into the fxml layout.
      *
      * @return the loaded pane.
@@ -39,14 +39,14 @@ public class Main extends Application {
 
         Pane mainPane = (Pane) loader.load(
             getClass().getResourceAsStream(
-                VistaNavigator.MAIN
+                ViewNavigator.MAIN
             )
         );
 
         MainController mainController = loader.getController();
 
-        VistaNavigator.setMainController(mainController);
-        VistaNavigator.loadVista(VistaNavigator.VISTA_1);
+        ViewNavigator.setMainController(mainController);
+        ViewNavigator.loadScreen(ViewNavigator.SIGN_IN);
 
         return mainPane;
     }

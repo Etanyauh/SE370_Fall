@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 /**
  * Controller class for the first vista.
  */
-public class Vista1Controller {
+public class SigninController {
 
     boolean authenticateUser(String user, String pw) {
         boolean status = false;
@@ -30,18 +30,18 @@ public class Vista1Controller {
      */
     @FXML
     void nextPane(ActionEvent event) {
-        VistaNavigator.loadVista(VistaNavigator.VISTA_2);
+        ViewNavigator.loadScreen(ViewNavigator.TEMPLATE);
     }
 
     @FXML
     void loginHandle(ActionEvent event) {
-        statusLabel.setText("");
+        //statusLabel.setText("");
         String user = usernameField.getText();
         String pw = passwordField.getText();
         //boolean isUser = authenticateUser(user, pw);
         if(user == "Dylan"){
             statusLabel.setText("User: "+user+" Pass: "+pw);
-            //VistaNavigator.loadVista();
+            //ViewNavigator.loadVista();
         } else {
             statusLabel.setText("User: "+user+" Pass: "+pw+"   Field(s) are empty");
         }
@@ -49,7 +49,7 @@ public class Vista1Controller {
 
         @FXML
         void registerHandle (ActionEvent event){
-            VistaNavigator.loadVista((VistaNavigator.RegisterScreen));
+            ViewNavigator.loadScreen((ViewNavigator.RegisterScreen));
         }
 
 

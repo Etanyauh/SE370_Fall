@@ -24,14 +24,14 @@ public class RegisterController {
      *
      * @param event the event that triggered the handler.
      */
-    @FXML
-    void nextPane(ActionEvent event) {
-        VistaNavigator.loadVista(VistaNavigator.VISTA_2);
-    }
+//    @FXML
+//    void nextPane(ActionEvent event) {
+//        ViewNavigator.loadScreen(ViewNavigator.);
+//    }
 
     @FXML
     void backHandle(ActionEvent event) {
-            VistaNavigator.loadVista(VistaNavigator.VISTA_1);
+            ViewNavigator.loadScreen(ViewNavigator.SIGN_IN);
     }
 
 
