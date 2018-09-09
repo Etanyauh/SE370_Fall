@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.UsersBag;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -15,8 +17,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        stage.setTitle("Vista Viewer");
-
+        stage.setTitle("Email Client");
+        File users = new File("data"+ File.separator+"UsersBag.ser");
+        if(users.createNewFile()) {
+            System.out.println("Creating file");
+        } else {
+            System.out.println("Loading file");
+            UsersBag.load();
+        }
         stage.setScene(
             createScene(
                 loadMainPane()

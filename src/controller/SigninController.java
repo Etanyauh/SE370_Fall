@@ -3,8 +3,10 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
-
+import model.*;
 import javafx.scene.control.*;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Controller class for the first vista.
@@ -35,22 +37,62 @@ public class SigninController {
 
     @FXML
     void loginHandle(ActionEvent event) {
-        //statusLabel.setText("");
-        String user = usernameField.getText();
-        String pw = passwordField.getText();
-        //boolean isUser = authenticateUser(user, pw);
-        if(user == "Dylan"){
-            statusLabel.setText("User: "+user+" Pass: "+pw);
-            //ViewNavigator.loadVista();
+        if(!Authenticate.checkFields(usernameField, passwordField)){
+            statusLabel.setText("Error in username or password field");
         } else {
-            statusLabel.setText("User: "+user+" Pass: "+pw+"   Field(s) are empty");
+            String user = usernameField.getText();
+            String pw = passwordField.getText();
+
+            //boolean isUser = authenticateUser(user, pw);
+            if (UsersBag.exists(user)) {
+                //statusLabel.setText("User: "+user+" Pass: "+pw);
+                //ViewNavigator.loadVista();
+                User temp = UsersBag.search(user);
+                if (temp.getPasswordHash().equals(Password.get_SHA_256_SecurePassword(pw, temp.getSalt()))) {
+                    System.out.println("Password Authenticated:");
+                    System.out.println("User: "+user);
+                    System.out.println("Password Hash: "+temp.getPasswordHash());
+                    ViewNavigator.loadScreen(ViewNavigator.EmailScreen);
+                }
+                else {
+                    System.out.println("Password Not Authenticated:");
+                    System.out.println("User: "+user);
+                    System.out.println("Password Hash: "+temp.getPasswordHash());
+                    System.out.println("Entered Password: "+ Password.get_SHA_256_SecurePassword(pw, temp.getSalt()));
+                    statusLabel.setText("Incorrect Password");
+                }
+            } else {
+                statusLabel.setText("Username does not exist");
+            }
         }
     }
 
         @FXML
-        void registerHandle (ActionEvent event){
-            ViewNavigator.loadScreen((ViewNavigator.RegisterScreen));
+        void registerHandle (ActionEvent event) throws NoSuchAlgorithmException {
+            if(!Authenticate.checkFields(usernameField, passwordField)){
+                statusLabel.setText("Error in username or password field");
+            } else {
+                String user = usernameField.getText();
+                String pass = passwordField.getText();
+                byte[] salt = Password.getSalt();
+                String userPass = Password.get_SHA_256_SecurePassword(pass, salt);
+
+                boolean domainValid = Authenticate.validateDomain(user);
+                if (!domainValid) {
+                    statusLabel.setText("Unsupported Domain");
+                } else {
+                    if (!UsersBag.exists(user)) {
+                        User tempUser = new User(user, userPass, salt);
+                        UsersBag.add(tempUser);
+                        UsersBag.save();
+                        ViewNavigator.loadScreen((ViewNavigator.EmailScreen));
+                    }
+                }
+
+            }
         }
+
+
 
 
 

@@ -19,6 +19,8 @@ public class ViewNavigator {
     public static final String SIGN_IN = "/view/signin_screen.fxml";
     public static final String TEMPLATE = "/view/Template.fxml";
     public static final String RegisterScreen = "/view/register_screen.fxml";
+    public static final String EmailScreen = "/view/email_view.fxml";
+
 
     /** The main application layout controller. */
     private static MainController mainController;
