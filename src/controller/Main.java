@@ -18,9 +18,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         stage.setTitle("Email Client");
-        File users = new File("data"+ File.separator+"UsersBag.ser");
-        if(users.createNewFile()) {
+        File users = new File(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
+        System.out.println(users.getPath());
+        System.out.println(users.getAbsolutePath());
+        if(!users.exists()) {
             System.out.println("Creating file");
+            users.createNewFile();
         } else {
             System.out.println("Loading file");
             UsersBag.load();
@@ -29,7 +32,7 @@ public class Main extends Application {
             createScene(
                 loadMainPane()
             )
-        );
+        );	
 
         stage.show();
     }

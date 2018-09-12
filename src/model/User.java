@@ -1,23 +1,48 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
-	private EmailsBag emails;
+	private ArrayList<Email> emails;
 	private String username;
 	private String passwordHash;
 	private byte[] salt;
 
+	
+	public static class CurrentUser {
+		private static User currentUser;
+		
+		public static void setUser(User user){
+			currentUser = user;
+		}
+		
+		public static  User getUser(){
+			return currentUser;
+		}
+	}
+	
+	
 	public User(String username, String passwordHash, byte[] salt) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		this.emails = new EmailsBag();
+		this.emails = new ArrayList<>();
 		this.salt = salt;
 	}
 
-	public EmailsBag getEmails() {
+	
+	public void resetEmails(){
+		this.emails = new ArrayList<Email>();
+	}
+	
+	
+	public ArrayList<Email> getEmails() {
 		return this.emails;
+	}
+	
+	public void addEmail(Email email) {
+		this.emails.add(email);
 	}
 	
 	public String getUsername() {

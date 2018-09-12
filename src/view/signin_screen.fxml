@@ -46,10 +46,10 @@
             </font>]
         </Label>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1"
-              GridPane.rowIndex="3">
+              GridPane.rowIndex="3" GridPane.columnSpan="2">
             <children>
-                <Button mnemonicParsing="false" onAction="#loginHandle" text="Login"/>
-                <Button mnemonicParsing="false" onAction="#registerHandle" text="Register"/>
+                <Button mnemonicParsing="false" onAction="#loginHandle" text="Login" prefWidth="70.0"/>
+                <Button mnemonicParsing="false" onAction="#registerHandle" text="Register" prefWidth="95.0"/>
             </children>
         </HBox>
 

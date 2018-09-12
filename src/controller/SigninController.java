@@ -49,7 +49,18 @@ public class SigninController {
                 //ViewNavigator.loadVista();
                 User temp = UsersBag.search(user);
                 if (temp.getPasswordHash().equals(Password.get_SHA_256_SecurePassword(pw, temp.getSalt()))) {
-                    System.out.println("Password Authenticated:");
+                    User.CurrentUser.setUser(temp);
+                    // -----------------------------
+                    Email emailTest = new Email();
+                    emailTest.setSender(temp.getUsername());
+                    emailTest.setBody("This is a test email, hope it finds you well!");
+                    emailTest.setSubject("Test");
+                    emailTest.setRecipient("joe@yg.com");
+                    User.CurrentUser.getUser().resetEmails();
+                    User.CurrentUser.getUser().addEmail(emailTest);
+                    UsersBag.save();
+                    
+                	System.out.println("Password Authenticated:");
                     System.out.println("User: "+user);
                     System.out.println("Password Hash: "+temp.getPasswordHash());
                     ViewNavigator.loadScreen(ViewNavigator.EmailScreen);
@@ -85,10 +96,10 @@ public class SigninController {
                         User tempUser = new User(user, userPass, salt);
                         UsersBag.add(tempUser);
                         UsersBag.save();
+                        User.CurrentUser.setUser(tempUser);
                         ViewNavigator.loadScreen((ViewNavigator.EmailScreen));
                     }
                 }
-
             }
         }
 

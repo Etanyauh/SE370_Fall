@@ -59,7 +59,7 @@ public class UsersBag{
 	
 	public static void save() {
 		try {
-			FileOutputStream fileOutStream = new FileOutputStream("data"+File.separator+"UsersBag.ser");
+			FileOutputStream fileOutStream = new FileOutputStream(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
 			ObjectOutputStream objectOutStream = new ObjectOutputStream(fileOutStream);
 			objectOutStream.writeObject(UsersBag.users);
 			objectOutStream.flush();
@@ -72,13 +72,13 @@ public class UsersBag{
 	
 	public static void load() throws ClassNotFoundException, FileNotFoundException{
 		try {
-			File usersFile = new File("data"+File.separator+"UsersBag.ser");
+			File usersFile = new File(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
 			if (usersFile.length() == 0) {
 				System.out.println("Creating New File...");
 				save();
 			}
 			else {
-			FileInputStream fileInStream = new FileInputStream("data"+File.separator+"UsersBag.ser");
+			FileInputStream fileInStream = new FileInputStream(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
 			ObjectInputStream objectInStream = new ObjectInputStream(fileInStream);
 			UsersBag.users = (ArrayList<User>) objectInStream.readObject();
 			objectInStream.close();

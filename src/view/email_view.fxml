@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -17,7 +20,7 @@
 <?import java.lang.Integer?>
 <?import java.lang.Double?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.RegisterController" alignment="TOP_CENTER">
+      fx:controller="controller.EmailController" alignment="TOP_CENTER">
     <fx:define>
         <Double fx:id="xHeight" fx:value="200" />
     </fx:define>
@@ -25,7 +28,7 @@
       <MenuBar>
         <menus>
             <Menu mnemonicParsing="false" text="Compose" />
-          <Menu mnemonicParsing="false" text="Sign Out">
+          <Menu mnemonicParsing="false" text="Sign Out" onAction="#backHandle">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
@@ -41,11 +44,22 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView layoutY="-2.0" prefHeight="700.0" prefWidth="200.0">
+                              <TableView fx:id="inbox_table" layoutY="-2.0" prefHeight="700.0" prefWidth="200.0">
                                 <columns>
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" From " />
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Subject " />
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Date " />
+                                    <TableColumn fx:id="inbox_from" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" From ">
+                                    <cellValueFactory> <PropertyValueFactory property="sender" />
+        							</cellValueFactory>
+        							</TableColumn>
+        							 
+                                    <TableColumn fx:id="inbox_subject" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Subject "> 
+                                    <cellValueFactory><PropertyValueFactory property="subject" />
+        							</cellValueFactory>
+        							</TableColumn>
+        							
+                                    <TableColumn fx:id="inbox_date" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Date ">
+                                    <cellValueFactory><PropertyValueFactory property="timestampPretty" />
+        							</cellValueFactory>
+        							</TableColumn>
                                 </columns>
                               </TableView>
                            </children>
@@ -84,7 +98,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <TextArea fx:id="email_textarea" prefWidth="${email_textarea.parent.prefWidth - xHeight}" prefHeight="1000.0">
+            <TextArea fx:id="email_textarea" prefWidth="800" prefHeight="700.0">
              <padding>
                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
              </padding>
