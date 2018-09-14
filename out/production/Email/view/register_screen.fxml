@@ -14,7 +14,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <GridPane hgap="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="583.0" vgap="18.0" alignment="CENTER"
-          fx:controller="sample.RegisterController" xmlns:fx="http://javafx.com/fxml" > <!--xmlns="http://javafx.com/javafx/10.0.1"-->
+          fx:controller="controller.RegisterController" xmlns:fx="http://javafx.com/fxml" > <!--xmlns="http://javafx.com/javafx/10.0.1"-->
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="165.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
@@ -29,10 +29,6 @@
    <padding>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
-
-    <fx:define>
-        <ToggleGroup fx:id="myToggleGroup"/>
-    </fx:define>
    <children>
       <Label alignment="CENTER" text="Register" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.columnSpan="2">
          <font>
@@ -44,36 +40,44 @@
               <Font name="System Bold" size="18.0"/>
           </font>
       </Label>
-       <Label text="Domain" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" >
+      <TextField fx:id="username_field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+       <Label text="First Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" >
            <font>
                <Font name="System Bold" size="18.0"/>
            </font>
        </Label>
-       <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.valignment="CENTER" GridPane.halignment="LEFT" >
+       <TextField fx:id="firstName_field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+              <Label text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" >
+           <font>
+               <Font name="System Bold" size="18.0"/>
+           </font>
+       </Label>
+       <TextField fx:id="lastName_field" GridPane.columnIndex="1" GridPane.rowIndex="3" />      
+       <!-- <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.valignment="CENTER" GridPane.halignment="LEFT" >
            <children>
                <RadioButton text="qc.edu" toggleGroup="$myToggleGroup"/>
                <RadioButton text="yg.com" toggleGroup="$myToggleGroup"/>
                <RadioButton text="lnb.gov" toggleGroup="$myToggleGroup" />
            </children>
-       </HBox>
-      <Label text="Password" GridPane.valignment="CENTER" GridPane.rowIndex="3" GridPane.halignment="LEFT" >
+       </HBox> -->
+      <Label text="Password" GridPane.valignment="CENTER" GridPane.rowIndex="4" GridPane.halignment="LEFT" >
           <font>
               <Font name="System Bold" size="18.0"/>
           </font>
       </Label>
-      <Label text="Re-enter Password" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" >
+      <Label text="Re-enter Password" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" >
           <font>
               <Font name="System Bold" size="18.0"/>
           </font>
       </Label>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
             <Button fx:id="back_btn" mnemonicParsing="false" text="Back" onAction="#backHandle"/>
             <Button fx:id="reg_btn" mnemonicParsing="false" text="Register" onAction="#registerHandle" />
          </children>
       </HBox>
-      <TextField fx:id="reg_user" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <PasswordField fx:id="reg_pw1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <PasswordField fx:id="reg_pw2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7"/>
+      <PasswordField fx:id="password_field_1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <PasswordField fx:id="password_field_2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

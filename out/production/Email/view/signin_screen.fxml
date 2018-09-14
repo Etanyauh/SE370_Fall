@@ -13,7 +13,7 @@
 <?import javafx.scene.control.PasswordField?>
 <GridPane fx:id="vista1" hgap="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" alignment="CENTER"
           prefHeight="391.0" prefWidth="583.0" vgap="18.0"
-          fx:controller="sample.SigninController"
+          fx:controller="controller.SigninController"
           xmlns:fx="http://javafx.com/fxml"> <!--xmlns="http://javafx.com/javafx/10.0.1"-->
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="125.0"/>
@@ -46,12 +46,19 @@
             </font>]
         </Label>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1"
-              GridPane.rowIndex="3">
+              GridPane.rowIndex="3" GridPane.columnSpan="2">
             <children>
-                <Button mnemonicParsing="false" onAction="#loginHandle" text="Login"/>
-                <Button mnemonicParsing="false" onAction="#registerHandle" text="Register"/>
+                <Button mnemonicParsing="false" onAction="#loginHandle" text="Login" prefWidth="70.0"/>
+                <Button mnemonicParsing="false" onAction="#registerHandle" text="Register" prefWidth="95.0"/>
             </children>
         </HBox>
+
+        <Label fx:id="statusLabel" text="" GridPane.columnSpan="2" GridPane.valignment="CENTER" GridPane.rowIndex="4" GridPane.halignment="RIGHT">
+            <font>
+                <Font name="Arial" size="12.0"/>
+            </font>]
+        </Label>
+
         <TextField fx:id="usernameField" prefWidth="115" minWidth="115" GridPane.columnSpan="2"
                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <PasswordField fx:id="passwordField" prefWidth="115" minWidth="115" GridPane.columnSpan="2"

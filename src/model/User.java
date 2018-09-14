@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class User implements Serializable {
 	private ArrayList<Email> emails;
 	private String username;
+	private String firstName;
+	private String lastName;
 	private String passwordHash;
 	private byte[] salt;
 
@@ -23,9 +25,11 @@ public class User implements Serializable {
 	}
 	
 	
-	public User(String username, String passwordHash, byte[] salt) {
+	public User(String username, String passwordHash, String firstName, String lastName, byte[] salt) {
 		super();
 		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.passwordHash = passwordHash;
 		this.emails = new ArrayList<>();
 		this.salt = salt;
@@ -60,6 +64,26 @@ public class User implements Serializable {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 
 	public byte[] getSalt() {
 	    return this.salt;

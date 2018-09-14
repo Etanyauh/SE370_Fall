@@ -5,15 +5,15 @@ import java.text.DateFormat;
 
 public class Email implements Serializable {
 	private String subject;
-	private String timestampPretty;
+	private String pretty_stamp;
 	private String body; 
 	private String recipient;
 	private String sender;
-	private long stampUgly;
+	private long raw_stamp;
 
 	public Email(){
-		this.stampUgly = System.currentTimeMillis();
-		this.timestampPretty = DateFormat.getDateTimeInstance().format(this.stampUgly);  
+		this.raw_stamp = System.currentTimeMillis();
+		this.pretty_stamp = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(this.raw_stamp);  
 	}
 
 	public String getSubject() {
@@ -25,7 +25,7 @@ public class Email implements Serializable {
 	}
 
 	public String getTimestampPretty() {
-		return timestampPretty;
+		return pretty_stamp;
 	}
 
 	public String getBody() {
@@ -44,8 +44,8 @@ public class Email implements Serializable {
 		this.sender = sender;
 	}
 
-	public long getStampUgly() {
-		return stampUgly;
+	public long getRawStamp() {
+		return raw_stamp;
 	}
 	
 	public String getRecipient() {

@@ -18,14 +18,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         stage.setTitle("Email Client");
+        File data_dir = new File(System.getProperty("user.dir")+"/data/");
+        if(!data_dir.exists()){
+        	System.out.println("Creating data directory.");
+        	data_dir.mkdirs();
+        }
         File users = new File(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
         System.out.println(users.getPath());
-        System.out.println(users.getAbsolutePath());
         if(!users.exists()) {
-            System.out.println("Creating file");
+            System.out.println("Creating UsersBag.ser file");
             users.createNewFile();
         } else {
-            System.out.println("Loading file");
+            System.out.println("Loading UsersBag.ser file");
             UsersBag.load();
         }
         stage.setScene(
@@ -37,14 +41,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    /**
-     * Loads the main fxml layout.
-     * Sets up the vista switching ViewNavigator.
-     * Loads the first vista into the fxml layout.
-     *
-     * @return the loaded pane.
-     * @throws IOException if the pane could not be loaded.
-     */
+
     private Pane loadMainPane() throws IOException {
         FXMLLoader loader = new FXMLLoader();
 
@@ -62,13 +59,7 @@ public class Main extends Application {
         return mainPane;
     }
 
-    /**
-     * Creates the main application scene.
-     *
-     * @param mainPane the main application layout.
-     *
-     * @return the created scene.
-     */
+ 
     private Scene createScene(Pane mainPane) {
         Scene scene = new Scene(
             mainPane

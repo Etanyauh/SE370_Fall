@@ -37,7 +37,7 @@ public class SigninController {
 
     @FXML
     void loginHandle(ActionEvent event) {
-        if(!Authenticate.checkFields(usernameField, passwordField)){
+        if(!Authenticate.checkSignInFields(usernameField, passwordField)){
             statusLabel.setText("Error in username or password field");
         } else {
             String user = usernameField.getText();
@@ -52,10 +52,10 @@ public class SigninController {
                     User.CurrentUser.setUser(temp);
                     // -----------------------------
                     Email emailTest = new Email();
-                    emailTest.setSender(temp.getUsername());
+                    emailTest.setSender("joe@yg.com");
                     emailTest.setBody("This is a test email, hope it finds you well!");
                     emailTest.setSubject("Test");
-                    emailTest.setRecipient("joe@yg.com");
+                    emailTest.setRecipient(temp.getUsername());
                     User.CurrentUser.getUser().resetEmails();
                     User.CurrentUser.getUser().addEmail(emailTest);
                     UsersBag.save();
@@ -80,28 +80,9 @@ public class SigninController {
 
         @FXML
         void registerHandle (ActionEvent event) throws NoSuchAlgorithmException {
-            if(!Authenticate.checkFields(usernameField, passwordField)){
-                statusLabel.setText("Error in username or password field");
-            } else {
-                String user = usernameField.getText();
-                String pass = passwordField.getText();
-                byte[] salt = Password.getSalt();
-                String userPass = Password.get_SHA_256_SecurePassword(pass, salt);
-
-                boolean domainValid = Authenticate.validateDomain(user);
-                if (!domainValid) {
-                    statusLabel.setText("Unsupported Domain");
-                } else {
-                    if (!UsersBag.exists(user)) {
-                        User tempUser = new User(user, userPass, salt);
-                        UsersBag.add(tempUser);
-                        UsersBag.save();
-                        User.CurrentUser.setUser(tempUser);
-                        ViewNavigator.loadScreen((ViewNavigator.EmailScreen));
-                    }
-                }
-            }
+        	ViewNavigator.loadScreen(ViewNavigator.RegisterScreen);
         }
+             
 
 
 
