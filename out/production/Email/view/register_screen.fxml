@@ -53,13 +53,6 @@
            </font>
        </Label>
        <TextField fx:id="lastName_field" GridPane.columnIndex="1" GridPane.rowIndex="3" />      
-       <!-- <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.valignment="CENTER" GridPane.halignment="LEFT" >
-           <children>
-               <RadioButton text="qc.edu" toggleGroup="$myToggleGroup"/>
-               <RadioButton text="yg.com" toggleGroup="$myToggleGroup"/>
-               <RadioButton text="lnb.gov" toggleGroup="$myToggleGroup" />
-           </children>
-       </HBox> -->
       <Label text="Password" GridPane.valignment="CENTER" GridPane.rowIndex="4" GridPane.halignment="LEFT" >
           <font>
               <Font name="System Bold" size="18.0"/>
@@ -76,7 +69,7 @@
             <Button fx:id="reg_btn" mnemonicParsing="false" text="Register" onAction="#registerHandle" />
          </children>
       </HBox>
-      <Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7"/>
+      <Label fx:id="statusLabel" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" alignment="CENTER_RIGHT"/>
       <PasswordField fx:id="password_field_1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <PasswordField fx:id="password_field_2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
