@@ -21,14 +21,7 @@ public class UsersBag{
 		users.add(user);
 	}
 
-	public static User search(String username) {
-		for (User u : users) {
-			if (u.getUsername().equalsIgnoreCase(username)) {
-				return u;
-			}
-		}
-		return null;
-	}
+	
 
 	public static boolean exists(String username) {
 		for (User u : users) {

@@ -44,9 +44,20 @@ public class Authenticate {
         return true;
     }
     
+    public static boolean checkLength(String user) {
+    
+    	return (user.length() < 4 || user.length() > 12) ? true: false;
+    
+    }
+    
+    
     public static boolean checkPasswords(PasswordField p1, PasswordField p2) {
     	String pw1 = p1.getText();
     	String pw2 = p2.getText();
+    	if(pw1.length() < 4 || pw1.length() > 12){
+    		System.out.println("Password is not within allowed length range!");
+    		return false;
+    	}
     	if(!(pw1.equals(pw2))){
     		System.out.println("Passwords dont match!");
     		return false;

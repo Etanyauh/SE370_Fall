@@ -18,20 +18,20 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         stage.setTitle("Email Client");
-        File data_dir = new File(System.getProperty("user.dir")+"/data/");
-        if(!data_dir.exists()){
-        	System.out.println("Creating data directory.");
-        	data_dir.mkdirs();
-        }
-        File users = new File(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
-        System.out.println(users.getPath());
-        if(!users.exists()) {
-            System.out.println("Creating UsersBag.ser file");
-            users.createNewFile();
-        } else {
-            System.out.println("Loading UsersBag.ser file");
-            UsersBag.load();
-        }
+//        File data_dir = new File(System.getProperty("user.dir")+"/data/");
+//        if(!data_dir.exists()){
+//        	System.out.println("Creating data directory.");
+//        	data_dir.mkdirs();
+//        }
+//        File users = new File(System.getProperty("user.dir")+"/data"+ File.separator+"UsersBag.ser");
+//        System.out.println(users.getPath());
+//        if(!users.exists()) {
+//            System.out.println("Creating UsersBag.ser file");
+//            users.createNewFile();
+//        } else {
+//            System.out.println("Loading UsersBag.ser file");
+//            UsersBag.load();
+//        }
         stage.setScene(
             createScene(
                 loadMainPane()
