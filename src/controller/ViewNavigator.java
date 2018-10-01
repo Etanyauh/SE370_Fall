@@ -20,10 +20,11 @@ public class ViewNavigator {
     public static final String TEMPLATE = "/view/Template.fxml";
     public static final String RegisterScreen = "/view/register_screen.fxml";
     public static final String EmailScreen = "/view/email_view.fxml";
+    public static final String COMPOSE = "/view/compose_view.fxml";
 
 
     /** The main application layout controller. */
-    private static MainController mainController;
+    public static MainController mainController;
 
     /**
      * Stores the main controller for later use in navigation tasks.

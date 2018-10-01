@@ -1,5 +1,7 @@
 package model;
+
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,25 +34,24 @@ public class Database {
 	public void createTable() throws Exception{
 		try {
 			String email = "CREATE TABLE IF NOT EXISTS email(user varchar(255) NOT NULL,password varchar(255),first varchar(255),last varchar(255),salt varchar(255), PRIMARY KEY(user))";
-			String inbox = "CREATE TABLE IF NOT EXISTS inbox(from,to,)";
-			String outbox = "";
-			String draft = "";
+			String inbox = "CREATE TABLE IF NOT EXISTS inbox(sender varchar(255) NOT NULL,recipient varchar(255),subject varchar(255),message_body TEXT,stamp BIGINT(8),is_draft int, PRIMARY KEY(stamp))";
 			
 			
 			Connection con = getConnection();
 			PreparedStatement create = con.prepareStatement(email);
 			create.executeUpdate();
+			
+			//Connection con2 = getConnection();
+			PreparedStatement createInbox = con.prepareStatement(inbox);
+			createInbox.executeUpdate();
 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		//		finally {
-		//			System.out.println("Created Table");
-		//		}
 
 	}
 
-	public void insert(String user,String pass,String first,String last,String salt) throws Exception{
+	public void insertUser(String user,String pass,String first,String last,String salt) throws Exception{
 
 
 		try {
@@ -62,32 +63,23 @@ public class Database {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		//		finally {
-		//			System.out.println("Insert Complete");
-		//		}
-
-
+	}
+	
+	
+	public void insertEmail(String sender,String recipient,String subject,String message_body,long stamp,int is_draft) throws Exception {
+		
+		try {
+			String sql = "INSERT INTO inbox(sender,recipient,subject,message_body,stamp,is_draft) VALUES ('"+sender+"','"+recipient+"', '"+subject+"',  '"+message_body+"' , '"+stamp+"' , '"+is_draft+"'  )";
+			Connection con = getConnection();
+			PreparedStatement insert = con.prepareStatement(sql);
+			insert.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 
-	//	public String getUser() throws Exception{
-	//		try {
-	//			
-	//			Connection con = getConnection();
-	//			PreparedStatement get = con.prepareStatement("SELECT ")
-	//			
-	//		}catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//		finally {
-	//			System.out.println("got user");
-	//		}
-	//		
-	//		return null;
-	//	}
-
-
-	public ArrayList<String> get(String user) throws Exception{
+	public ArrayList<String> getUser(String user) throws Exception{
 		try {
 
 			Connection con = getConnection();
@@ -113,13 +105,11 @@ public class Database {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		//		finally {
-		//			System.out.println("Insert Complete");
-		//		}
+
 		return null;
 	}
 
-
+	
 	/**
 	 * gets the connection from mysql
 	 * @return
@@ -130,7 +120,7 @@ public class Database {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false&verifyServerCertificate=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			String username = "root";
-			String password = "cs370";
+			String password = "ziggy9214";
 			Class.forName(driver);
 			Connection conn = DriverManager.getConnection(url,username,password);
 			//System.out.println("Connected");
@@ -140,15 +130,6 @@ public class Database {
 
 		return null;
 	}
-
-//	public static User search(String username) {
-//		for (User u : users) {
-//			if (u.getUsername().equalsIgnoreCase(username)) {
-//				return u;
-//			}
-//		}
-//		return null;
-//	}
 
 	public String toString() {
 		return userName + " " + passWord + " " + firstName + " " + lastName;

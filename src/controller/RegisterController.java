@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.Current;
 import model.Database;
 import model.Password;
 import model.User;
@@ -31,8 +32,14 @@ public class RegisterController {
 	@FXML
 	void registerHandle (ActionEvent event) throws Exception {
 		String username = username_field.getText().trim();
-		if(!Authenticate.checkRegisterFields(username_field, firstName_field, lastName_field, password_field_1, password_field_2) || !Authenticate.checkPasswords(password_field_1, password_field_2)){
-            statusLabel.setText("Error registering. Check fields!");   
+		if(!Authenticate.checkRegisterFields(username_field, firstName_field, lastName_field, password_field_1, password_field_2)){
+            statusLabel.setText("Check fields!"); 
+		} else if(!Authenticate.checkPasswordLengthLong(password_field_1)){
+			statusLabel.setText("Password length must be < 12");
+		} else if(!Authenticate.checkPasswordLengthShort(password_field_1)){
+			statusLabel.setText("Password length must be > 3");
+		} else if(!Authenticate.checkPasswordMatch(password_field_1, password_field_2)){
+			statusLabel.setText("Passwords dont match");
         } else if(username.length() > 20) {
             statusLabel.setText("Username must be < 21 characters.");
         } else {
@@ -59,27 +66,27 @@ public class RegisterController {
             
             else {
             	
-                if (dataBase.get(username).isEmpty()) {
+                if (dataBase.getUser(username).isEmpty()) {
                     
                 	
                 	User tempUser = new User(username, userPass, firstName, lastName, salt);
                    // Database dB = new Database(); 
                 	
                 	System.out.println("encode:" + encode);
-                    dataBase.insert(username, userPass, firstName, lastName, encode);
+                    dataBase.insertUser(username, userPass, firstName, lastName, encode);
                     
-                    System.out.println(dataBase.get(username).size());
+                    System.out.println(dataBase.getUser(username).size());
                     
-                    System.out.println(dataBase.get(username).toString());
+                    System.out.println(dataBase.getUser(username).toString());
                     
                     
                     
 //                    UsersBag.add(tempUser);
 //                    UsersBag.save();
-                    User.CurrentUser.setUser(tempUser);
+                    Current.getSession().user = username;
                     ViewNavigator.loadScreen(ViewNavigator.EmailScreen);
                 } else {
-                	statusLabel.setText("Username already exists for chosen domain!");
+                	statusLabel.setText("Username exists!");
                 }
             }
         }

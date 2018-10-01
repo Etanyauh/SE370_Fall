@@ -16,19 +16,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-
 <?import java.lang.Integer?>
 <?import java.lang.Double?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.EmailController" alignment="TOP_CENTER">
     <fx:define>
         <Double fx:id="xHeight" fx:value="200" />
     </fx:define>
    <children>
-      <MenuBar>
+   	<VBox>
+   		<Label fx:id="username_label" text=" " alignment="CENTER_RIGHT">
+   			<padding>
+		    	<Insets bottom="7.0" left="7.0" right="10.0" top="7.0" />
+			</padding>
+   		</Label>
+      	<MenuBar>
         <menus>
-            <Menu mnemonicParsing="false" text="Compose" />
+            <Menu mnemonicParsing="false" text="Compose" onAction="#composeHandle" >
+            <items>
+              <MenuItem mnemonicParsing="false" text="New Message" />
+            </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Sign Out" onAction="#backHandle">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
@@ -36,28 +46,29 @@
           </Menu>
         </menus>
       </MenuBar>
+      </VBox>
       <!--<HBox prefHeight="504.0" prefWidth="710.0">-->
        <HBox fx:id="hbox" prefWidth="${hbox.parent.prefWidth}">
          <children>
-            <TabPane fx:id="tabpane" prefHeight="50.0" minWidth="200.0" maxWidth="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabpane" prefHeight="50.0" minWidth="230.0" maxWidth="230.0" prefWidth="230.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text=" Inbox ">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="inbox_table" layoutY="-2.0" prefHeight="700.0" prefWidth="200.0">
+                              <TableView fx:id="inbox_table" layoutY="-2.0" prefHeight="700.0" prefWidth="230.0" >
                                 <columns>
-                                    <TableColumn fx:id="inbox_from" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" From ">
+                                    <TableColumn fx:id="inbox_from" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" From ">
                                     <cellValueFactory> <PropertyValueFactory property="sender" />
         							</cellValueFactory>
         							</TableColumn>
         							 
-                                    <TableColumn fx:id="inbox_subject" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Subject "> 
+                                    <TableColumn fx:id="inbox_subject" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Subject "> 
                                     <cellValueFactory><PropertyValueFactory property="subject" />
         							</cellValueFactory>
         							</TableColumn>
         							
-                                    <TableColumn fx:id="inbox_date" maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Date ">
+                                    <TableColumn fx:id="inbox_date" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Date ">
                                     <cellValueFactory><PropertyValueFactory property="timestampPretty" />
         							</cellValueFactory>
         							</TableColumn>
@@ -71,11 +82,20 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView layoutY="-2.0" prefHeight="700.0" prefWidth="200.0">
+                              <TableView fx:id="outbox_table" layoutY="-2.0" prefHeight="700.0" prefWidth="230.0">
                                 <columns>
-                                  <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" To " />
-                                  <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Subject " />
-                                  <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Date " />
+                                  <TableColumn fx:id="outbox_to" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" To ">
+                                  	<cellValueFactory><PropertyValueFactory property="sender" />
+        							</cellValueFactory>
+        							</TableColumn>
+                                  <TableColumn fx:id="outbox_subject" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Subject " >
+                                  	<cellValueFactory><PropertyValueFactory property="subject" />
+        							</cellValueFactory>
+        							</TableColumn>
+                                  <TableColumn fx:id="outbox_date" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Date " >
+                                  	<cellValueFactory><PropertyValueFactory property="timestampPretty" />
+        							</cellValueFactory>
+        							</TableColumn>
                                 </columns>
                               </TableView>
                            </children>
@@ -86,11 +106,20 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView layoutY="-2.0" prefHeight="700.0" prefWidth="200.0">
+                              <TableView fx:id="drafts_table" layoutY="-2.0" prefHeight="700.0" prefWidth="230.0">
                                 <columns>
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" To " />
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Subject " />
-                                    <TableColumn maxWidth="68.0" minWidth="50.0" prefWidth="68.0" text=" Date " />
+                                    <TableColumn fx:id="drafts_to" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" To " >
+                                    <cellValueFactory><PropertyValueFactory property="recipient" />
+        							</cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn fx:id="drafts_subject" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Subject " >
+                                    <cellValueFactory><PropertyValueFactory property="subject" />
+        							</cellValueFactory>
+        							</TableColumn>
+                                    <TableColumn fx:id="drafts_date" maxWidth="78.0" minWidth="50.0" prefWidth="78.0" text=" Date " >
+                                    <cellValueFactory><PropertyValueFactory property="timestampPretty" />
+        							</cellValueFactory>
+        							</TableColumn>
                                 </columns>
                               </TableView>
                            </children>
@@ -103,14 +132,25 @@
             	<children>
 	            	<VBox>
 	            	<children>
-	            		<Label text="Compose elements will go">
-	            			<padding>
-	                 			<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-	             			</padding>
-	             		 </Label>
+		            	<GridPane vgap="15.0" hgap="15.0" alignment="CENTER_RIGHT">
+		            		<padding>
+		                 		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+		             		</padding>
+		             		<Button text="Reply" onAction="#reply" GridPane.columnIndex="0">
+			             		<padding>
+			                 		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			             		</padding>
+		             		</Button>
+		             		<Button text="Forward" onAction="#forward" GridPane.columnIndex="1">
+		             			<padding>
+			                 		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			             		</padding>
+		             		</Button>
+		            	</GridPane>
+	         
 	            	</children>
 	            	</VBox>
-	            	<TextArea fx:id="email_textarea" prefWidth="800" prefHeight="700.0">
+	            	<TextArea fx:id="email_textarea" prefWidth="750" prefHeight="650.0">
 	             		<padding>
 	                 		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 	             		</padding>

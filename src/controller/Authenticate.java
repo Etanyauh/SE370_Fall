@@ -13,10 +13,7 @@ import java.util.regex.Pattern;
 public class Authenticate {
 
     public static boolean validateDomain(String username){
-//        domains.add("yg.com");
-//        domains.add("lnb.com");
-//        domains.add("qc.edu");
-        Pattern domain_pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+((@yg.com)|(@lnb.gov)|(@qc.edu))$");
+        Pattern domain_pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+((@yg.com)|(@lnb.gov)|(@cq.edu)|(@qc.edu))$");
         Matcher domain_matcher = domain_pattern.matcher(username);
         if (domain_matcher.find()) {
         	return true;
@@ -37,7 +34,8 @@ public class Authenticate {
     
     public static boolean checkRegisterFields(TextField userField, TextField firstName, TextField lastName, PasswordField pw1, PasswordField pw2) {
         if (userField.getText().trim().isEmpty() ||firstName.getText().trim().isEmpty() ||lastName.getText().trim().isEmpty() || pw1.getText().isEmpty() || pw2.getText().isEmpty()) {
-    		System.out.println("One or more fields empty");
+    		System.out.println("username: "+userField.getText());
+        	System.out.println("One or more fields empty");
             return false;
         }
 		System.out.println("Fields pass!");
@@ -51,13 +49,27 @@ public class Authenticate {
     }
     
     
-    public static boolean checkPasswords(PasswordField p1, PasswordField p2) {
+    public static boolean checkPasswordLengthLong(PasswordField p1) {
     	String pw1 = p1.getText();
-    	String pw2 = p2.getText();
-    	if(pw1.length() < 4 || pw1.length() > 12){
+    	if(pw1.length() > 12){
     		System.out.println("Password is not within allowed length range!");
     		return false;
     	}
+    	return true;
+    }
+    
+    public static boolean checkPasswordLengthShort(PasswordField p1) {
+    	String pw1 = p1.getText();
+    	if(pw1.length() < 4){
+    		System.out.println("Password is not within allowed length range!");
+    		return false;
+    	}
+    	return true;
+    }
+    
+    public static boolean checkPasswordMatch(PasswordField p1, PasswordField p2){
+    	String pw1 = p1.getText();
+    	String pw2 = p2.getText();
     	if(!(pw1.equals(pw2))){
     		System.out.println("Passwords dont match!");
     		return false;

@@ -27,3 +27,9 @@
     -fx-base: white;
     -fx-font-size: 14px;
 }
+
+#username_label{
+    -fx-font-size: 12px;
+    -fx-font-weight: 400;
+    text-align: right;
+}
