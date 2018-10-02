@@ -1,11 +1,11 @@
 package controller;
 
-import javafx.event.ActionEvent; 
+import javafx.event.ActionEvent;  
+
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import model.*;
 import javafx.scene.control.*;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 

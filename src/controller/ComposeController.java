@@ -1,6 +1,6 @@
 package controller;
 
-import java.net.URL;
+import java.net.URL; 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,11 +149,14 @@ public class ComposeController implements Initializable {
     		message = message+"\n\n ---- Original Message -----\n\n"+ Current.getSession().formatted_mail;
     	} else if(Current.getSession().compose_type.equals("forward")){
     		message = Current.getSession().formatted_mail;
+    	} else if (Current.getSession().is_draft == 1){
+    		try {
+    		Connection conn = dataBase.getConnection();
+    		conn.createStatement().executeUpdate("DELETE FROM inbox WHERE stamp="+Current.getSession().stamp);
+    		} catch(Exception e){
+    			e.printStackTrace();
+    		}
     	}
-    	
-//    	if (Current.getSession().is_draft == 1){
-//    		dataBase.removeEmail();
-//    	}
     	try {
 			dataBase.insertEmail(Current.getSession().user,to,subject,message,System.currentTimeMillis(),0);
 			
