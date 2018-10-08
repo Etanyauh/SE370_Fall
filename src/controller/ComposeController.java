@@ -1,6 +1,6 @@
 package controller;
 
-import java.net.URL; 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Current;
 import model.Database;
-import model.Email;
 
 public class ComposeController implements Initializable {
 
@@ -170,6 +169,10 @@ public class ComposeController implements Initializable {
    
     @FXML void saveToDrafts(ActionEvent event) {
     	try {
+    		if (Current.getSession().is_draft==1){
+    		Connection conn = dataBase.getConnection();
+    		conn.createStatement().executeUpdate("DELETE FROM inbox WHERE stamp="+Current.getSession().stamp);
+    		}
 			dataBase.insertEmail(Current.getSession().user,to_field.getText(),subject_field.getText(),email_textarea.getText(),System.currentTimeMillis(),1);
 		} catch (Exception e) {
 			e.printStackTrace();
