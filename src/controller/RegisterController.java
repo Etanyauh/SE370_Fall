@@ -3,6 +3,7 @@ package controller;
 
 import java.security.NoSuchAlgorithmException;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,9 +12,6 @@ import javafx.scene.control.TextField;
 import model.Current;
 import model.Database;
 import model.Password;
-import model.User;
-import model.UsersBag;
-
 
 public class RegisterController {
 	
@@ -31,6 +29,7 @@ public class RegisterController {
 	
 	@FXML
 	void registerHandle (ActionEvent event) throws Exception {
+		statusLabel.setText("");
 		String username = username_field.getText().trim();
 		if(!Authenticate.checkRegisterFields(username_field, firstName_field, lastName_field, password_field_1, password_field_2)){
             statusLabel.setText("Check fields!"); 
@@ -42,6 +41,10 @@ public class RegisterController {
 			statusLabel.setText("Passwords dont match");
         } else if(username.length() > 20) {
             statusLabel.setText("Username must be < 21 characters.");
+        } else if(Authenticate.validateDomain(username)) {
+                statusLabel.setText("Unsupported Domain");
+        } else if(Authenticate.checkLength(username)){
+        		statusLabel.setText("Username length must be between 4 and 12");
         } else {
             
             String pass = password_field_1.getText().trim();
@@ -51,25 +54,22 @@ public class RegisterController {
             encode = new String(salt, "ISO-8859-1");
             String userPass = Password.get_SHA_256_SecurePassword(pass, salt);
 
-            boolean domainValid = Authenticate.validateDomain(username);
-            boolean lengthValid = Authenticate.checkLength(username);
+//            boolean domainValid = Authenticate.validateDomain(username);
+//            boolean lengthValid = Authenticate.checkLength(username);
            
-            if (!domainValid) {
-                statusLabel.setText("Unsupported Domain");
+//            if (!domainValid) {
+//                statusLabel.setText("Unsupported Domain");
 //            } else if(!lengthValid) {
 //            	statusLabel.setText("User needs to be at least 4-12 characters long");
-            }
+           
             
 //            else if(!lengthValid) {
 //            	statusLabel.setText("User length too short");
 //            }
             
-            else {
-            	
                 if (dataBase.getUser(username).isEmpty()) {
                     
                 	
-                	User tempUser = new User(username, userPass, firstName, lastName, salt);
                    // Database dB = new Database(); 
                 	
                 	System.out.println("encode:" + encode);
@@ -90,7 +90,6 @@ public class RegisterController {
                 }
             }
         }
-	}
 	
 	@FXML void backHandle(ActionEvent event) { 
 		ViewNavigator.loadScreen(ViewNavigator.SIGN_IN);

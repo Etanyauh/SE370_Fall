@@ -1,8 +1,8 @@
 package controller;
 
 import javafx.scene.control.PasswordField;
+
 import javafx.scene.control.TextField;
-import model.UsersBag;
 
 import javax.xml.soap.Text;
 import java.util.ArrayList;

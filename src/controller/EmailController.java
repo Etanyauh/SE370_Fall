@@ -174,11 +174,17 @@ public class EmailController implements Initializable {
 	    }
 	    
 	    @FXML void reply(ActionEvent event){
+	    	if(Current.getSession().recipient == null){
+	    		return;
+	    	}
 	    	Current.getSession().compose_type = "reply";
 	    	ViewNavigator.loadScreen(ViewNavigator.COMPOSE);
 	    }
 	    
 	    @FXML void forward(ActionEvent event){
+	    	if(Current.getSession().recipient == null){
+	    		return;
+	    	}
 	    	Current.getSession().compose_type = "forward";
 	    	ViewNavigator.loadScreen(ViewNavigator.COMPOSE);
 	    
